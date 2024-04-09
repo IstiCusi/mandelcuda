@@ -3,12 +3,12 @@
 ## Description
 
 MandelCuda is a very minimalistic show case of CUDA for the calculation of the Mandelbrot set
-and its boundaries. V
+and its boundaries.
 
 
 ## Installation
 
-Compile the demo using `make`
+Compile the mandelcute-iness using `make`
 
 ## Contributing
 
