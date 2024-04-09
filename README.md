@@ -24,3 +24,5 @@ This project is open-source and is licensed under the MIT License. Please see th
 
 - Complete API documention 
 - Extend about better coloring schemes and zooming etc
+- The coloring is based on a heuristic assumption of the distribution of iterations 
+  (A better color mapping could be done in sequence)
