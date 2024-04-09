@@ -3,51 +3,106 @@
 #include <stdlib.h>
 #include <math.h>
 
-extern void computeMandelbrot(int *output, float xmin, float xmax, float ymin, float ymax, int width, int height, int maxIter);
+extern void computeMandelbrot(int *output, float *wavelength, float xmin, float xmax, float ymin, float ymax, int width, int height, int maxIter, float minWaveLength, float maxWaveLength);
+extern void calcRGB(double len, unsigned char* rgb);
+
+// TODO Bring all state relevant properties into a struct
+
+void saveState(int *output, int width, int height) {
+  FILE *fp = fopen("distribution.txt", "w");
+  if (fp != NULL) {
+    for (int i = 0; i < width * height; i++) {
+      fprintf(fp, "%d\n", output[i]);
+    }
+    fclose(fp);
+  }
+}
+
+Color getColor (float wavelength) {
+  unsigned char rgb[3];
+  calcRGB(wavelength, rgb); 
+  Color color = { };
+  color = (Color){rgb[0], rgb[1], rgb[2], 255};
+  return color;
+}
 
 int main() {
-  
-    InitWindow(0, 0, "Mandelbrot Set");
-    int width = GetScreenWidth();
-    int height = GetScreenHeight();
 
-    float aspectRatio = (float)width / (float)height;
-    int maxIter = 1000;
-    int *output = (int *)malloc(width * height * sizeof(int));
+  int width = 2560 * 0.5;
+  int height = 1600 * 0.9 * 0.5;
 
-    float xmin = -2.5;
-    float xmax = 1.0;
-    float xrange = xmax - xmin;
-    float yrange = xrange / aspectRatio;
-    float ymin = -yrange / 2;
-    float ymax = yrange / 2;
+  InitWindow(width, height, "Mandelbrot Set");
 
-    computeMandelbrot(output, xmin, xmax, ymin, ymax, width, height, maxIter);
+  BeginDrawing();
+  ClearBackground(RAYWHITE);
+  EndDrawing();
 
-    SetTargetFPS(60);
+  float xcenter = -0.75; 
+  float ycenter = 0.0;   
 
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(BLACK);
+  float aspectRatio = (float)width / (float)height;
+  float xrange = 3.5; 
+  float yrange = xrange / aspectRatio;
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int iter = output[y * width + x];
-                float normIter = (float)iter / maxIter;
-                float hue = (normIter * 360.0f) - 90.0f;
-                float saturation = 0.5f + 0.5f * sin(hue * 0.3);
-                float brightness = 0.5f + 0.5f * cos(hue * 0.5);
-                Color color = ColorFromHSV(hue, saturation, brightness);
-                DrawPixel(x, y, color);
-            }
+  float xmin = xcenter - xrange / 2;
+  float xmax = xcenter + xrange / 2;
+
+  float ymin = ycenter - yrange / 2;
+  float ymax = ycenter + yrange / 2;
+
+  int maxIter = 500000;
+  int *output = (int *)malloc(width * height * sizeof(int));
+  float *wavelengths = (float *)malloc(width * height * sizeof(float));
+  float minWaveLength = 500;
+  float maxWaveLength = 750;
+
+  computeMandelbrot(output, wavelengths,
+                    xmin, xmax,
+                    ymin, ymax,
+                    width, height, 
+                    maxIter, 
+                    minWaveLength, maxWaveLength);
+
+
+  SetTargetFPS(60);
+
+  bool is_drawn = 0;
+
+  while (!WindowShouldClose()) {
+    BeginDrawing();
+
+    if (is_drawn == 0) {
+      ClearBackground(BLACK);
+      for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+          int idx = y * width + x;
+          float wavelength = wavelengths[idx];
+          Color color = (output [idx]==maxIter)? BLACK : getColor(wavelength);
+          DrawPixel(x, y, color);
         }
-
-        EndDrawing();
+      }
+      saveState(output, width, height);
+      is_drawn = 1;
     }
 
-    free(output);
-    CloseWindow();
+    EndDrawing();
+  }
 
-    return 0;
+  free(output); 
+  free(wavelengths); 
+  CloseWindow(); 
+
+  return 0;
+
 }
+
+
+
+
+
+
+
+
+
+
 

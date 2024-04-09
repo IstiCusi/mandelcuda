@@ -8,7 +8,7 @@ TARGET=mandelbrot
 
 # Quelldateien
 CUDA_SRC=mandel_cuda.cu
-C_SRC=mandelbrot.c
+C_SRC=mandelbrot.c colorspace.c
 
 # Objektdateien
 CUDA_OBJ=$(CUDA_SRC:.cu=.o)
@@ -26,7 +26,7 @@ $(TARGET): $(CUDA_OBJ) $(C_OBJ)
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
-	rm -f $(TARGET) $(CUDA_OBJ) $(C_OBJ)
+	rm -f $(TARGET) $(CUDA_OBJ) $(C_OBJ) *.png *.txt
 
 .PHONY: all clean
 
