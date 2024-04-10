@@ -28,8 +28,8 @@ Color getColor (float wavelength) {
 
 int main() {
 
-  int width = 2560 * 0.5;
-  int height = 1600 * 0.9 * 0.5;
+  int width = 2560 * 1.0;
+  int height = 1600 * 0.9 * 1.0;
 
   InitWindow(width, height, "Mandelbrot Set");
 
@@ -50,10 +50,10 @@ int main() {
   float ymin = ycenter - yrange / 2;
   float ymax = ycenter + yrange / 2;
 
-  int maxIter = 500000;
+  int maxIter = 20000;
   int *output = (int *)malloc(width * height * sizeof(int));
   float *wavelengths = (float *)malloc(width * height * sizeof(float));
-  float minWaveLength = 500;
+  float minWaveLength = 350;
   float maxWaveLength = 750;
 
   computeMandelbrot(output, wavelengths,

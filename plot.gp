@@ -14,10 +14,10 @@ bin(x,width)=width*floor(x/width)+width/2.0
 set output 'distribution_normal.png'
 set title 'Normal Distribution'
 unset logscale y
-plot 'data.txt' using (bin($1,binwidth)):(1.0) smooth freq with boxes
+plot 'distribution.txt' using (bin($1,binwidth)):(1.0) smooth freq with boxes
 
 set output 'distribution_logarithmic.png'
 set title 'Logarithmic Distribution'
 set logscale y 
-plot 'data.txt' using (bin($1,binwidth)):(1.0) smooth freq with boxes
+plot 'distribution.txt' using (bin($1,binwidth)):(1.0) smooth freq with boxes
 
