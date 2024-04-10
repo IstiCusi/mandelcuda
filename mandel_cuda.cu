@@ -1,14 +1,10 @@
 #include <cuda_runtime.h>
-
 __device__ float mapIterationsToWavelength(int iterations, int maxIter, float minWavelength, float maxWavelength) {
-
-    maxIter = maxIter / 50.0f;
-
-    float logCurrent = logf(iterations + 1);
-    float logMax = logf(maxIter + 1);
-    float scale = (logCurrent - logf(1)) / (logMax - logf(1));
-
-    float wavelength = minWavelength + (maxWavelength - minWavelength) * scale;
+    float logIter = logf(iterations);
+    float logMaxIter = logf(maxIter);
+    float normalizedLogIter = (logIter - logf(1)) / (logMaxIter - logf(1));
+    float expScale = exp(normalizedLogIter * log(maxWavelength / minWavelength));
+    float wavelength = minWavelength * expScale;
     return wavelength;
 }
 

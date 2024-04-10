@@ -53,8 +53,8 @@ int main() {
   int maxIter = 20000;
   int *output = (int *)malloc(width * height * sizeof(int));
   float *wavelengths = (float *)malloc(width * height * sizeof(float));
-  float minWaveLength = 350;
-  float maxWaveLength = 750;
+  float minWaveLength = 400;
+  float maxWaveLength = 700;
 
   computeMandelbrot(output, wavelengths,
                     xmin, xmax,
