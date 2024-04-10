@@ -5,7 +5,7 @@
 MandelCuda is a very minimalistic show case of CUDA for the calculation of the Mandelbrot set
 and its boundaries.
 
-![First Calculation without spectral mapping](docs/assets/4.jpeg)
+![First Calculation without spectral mapping](docs/assets/5.jpeg)
 ![Log-Log Distribution](docs/assets/d1.jpeg)
 
 ## Installation
