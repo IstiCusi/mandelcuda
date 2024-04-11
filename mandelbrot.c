@@ -39,9 +39,29 @@ int main() {
 
   float xcenter = -0.75; 
   float ycenter = 0.0;   
+  float xrange = 3.5; 
+
+  // float xcenter = 0.275 ;
+  // float ycenter = 0.0	 ;   
+  // float xrange =   0.05; 
+
+  // float xcenter = -0.747  ;
+  // float ycenter = 0.065	 ;   
+  // float xrange =   0.02; 
+
+  // float xcenter = -1.25066  ;
+  // float ycenter = 0.02012	 ;   
+  // float xrange =   0.0004; 
+
+  // float xcenter = -1.3107  ;
+  // float ycenter = 0.0038	 ;   
+  // float xrange =   0.3; 
+
+  // float xcenter = -0.724  ;
+  // float ycenter = 0.246	 ;   
+  // float xrange =   0.01; 
 
   float aspectRatio = (float)width / (float)height;
-  float xrange = 3.5; 
   float yrange = xrange / aspectRatio;
 
   float xmin = xcenter - xrange / 2;
@@ -50,7 +70,7 @@ int main() {
   float ymin = ycenter - yrange / 2;
   float ymax = ycenter + yrange / 2;
 
-  int maxIter = 20000;
+  int maxIter = 1000;
   int *output = (int *)malloc(width * height * sizeof(int));
   float *wavelengths = (float *)malloc(width * height * sizeof(float));
   float minWaveLength = 400;
