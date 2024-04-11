@@ -13,8 +13,6 @@ and its boundaries.
 The iteration inside the Mandelbrot set generation loop, as found in the [MandelbrotKernel](https://github.com/IstiCusi/mandelcuda/blob/main/mandel_cuda.cu#L21-L26) 
 is mathematically very simple and represented by:
 
-The iteration inside the Mandelbrot set generation loop is mathematically represented by:
-
 $$
 z_{n+1} = z_n^2 + c
 $$
@@ -24,12 +22,10 @@ with \( z_0 = 0 \) and \( c = x_0 + iy_0 \), where \( x_0 \) and \( y_0 \) are t
 $$
 \text{Real}(z_{n+1}) = x^2 - y^2 + x_0
 $$
+
 $$
 \text{Imaginary}(z_{n+1}) = 2xy + y_0
 $$
-
-The process continues until either the magnitude of \( z_n \) squared (\( x^2 + y^2 \)) exceeds 4, indicating the point does not belong to the Mandelbrot set, or the maximum number of iterations is reached.
-
 
 This iteration continues until either the magnitude of \( z_n \) squared (\( x^2 + y^2 \)) exceeds 4,
 indicating the point does not belong to the Mandelbrot set, or the maximum number of iterations is reached.
